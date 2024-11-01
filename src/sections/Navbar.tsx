@@ -1,4 +1,3 @@
-import React from "react";
 import pokeballIcon from "../assets/pokeball-icon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect } from "react";
