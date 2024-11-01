@@ -8,7 +8,8 @@ import { getPokemonData } from "../app/reducers/getPokemonData";
 
 function Search() {
   const dispatch = useAppDispatch();
-  const { allPokemon, randomPokemons } = useAppSelector(({ pokemon }) => pokemon);
+  const { allPokemon, randomPokemons } = useAppSelector(
+    ({ pokemon }) => pokemon);
 
   useEffect(() => {
     dispatch(getInitialPokemonData());
