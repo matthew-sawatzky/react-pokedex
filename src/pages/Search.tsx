@@ -5,11 +5,13 @@ import { getInitialPokemonData } from "../app/reducers/getInitialPokemonData";
 import { useAppSelector } from "../app/hooks";
 import PokemonCardGrid from "../components/PokemonCardGrid";
 import { getPokemonData } from "../app/reducers/getPokemonData";
+import { debounce } from "../utils/Debounce"
 
 function Search() {
   const dispatch = useAppDispatch();
   const { allPokemon, randomPokemons } = useAppSelector(
-    ({ pokemon }) => pokemon);
+    ({ pokemon }) => pokemon
+  );
 
   useEffect(() => {
     dispatch(getInitialPokemonData());
@@ -21,13 +23,36 @@ function Search() {
       const randomPokemonsId = clonedPokemons
         .sort(() => Math.random() - Math.random())
         .slice(0, 20);
-      dispatch(getPokemonData(randomPokemonsId))
+      dispatch(getPokemonData(randomPokemonsId));
     }
   }, [allPokemon, dispatch]);
+
+  const handleChange = debounce((value:string) => getPokemon(value), 300)
+
+  const getPokemon = async (value: string) => {
+    if (value.length) {
+      const pokemons = allPokemon?.filter((pokemon) =>
+        pokemon.name.includes(value.toLowerCase())
+      );
+      dispatch(getPokemonData(pokemons!));
+    } else {
+      const clonedPokemons = [...(allPokemon as [])];
+      const randomPokemonsId = clonedPokemons
+        .sort(() => Math.random() - Math.random())
+        .slice(0, 20);
+      dispatch(getPokemonData(randomPokemonsId));
+    }
+  };
+
   return (
     <>
       <div className="search">
-        <input type="text" className="pokemon-searchbar" placeholder="Search Pokedex" />
+        <input
+          type="text"
+          className="pokemon-searchbar"
+          placeholder="Search Pokedex"
+          onChange={(e) => handleChange(e.target.value)}
+        />
         <PokemonCardGrid pokemons={randomPokemons!} />
       </div>
     </>

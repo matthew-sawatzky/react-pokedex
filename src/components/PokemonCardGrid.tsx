@@ -1,11 +1,16 @@
 import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
 import { IoGitCompare } from "react-icons/io5";
-import { FaPlus, FaTrash } from "react-icons/fa"
-import { useLocation, useNavigate } from "react-router-dom"
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { addToCompare } from "../app/slices/PokemonSlice";
+import { setToast } from "../app/slices/AppSlice";
 
 function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
-const location = useLocation();
-const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   return (
     <div className="pokemon-card-grid-container">
       <div className="pokemon-card-grid">
@@ -15,16 +20,24 @@ const navigate = useNavigate()
             return (
               <div key={data.id} className="pokemon-card">
                 <div className="pokemon-card-list">
-              {location.pathname.includes("/pokemon") || location.pathname.includes("/search") ? (
-                <FaPlus className="plus" />
-              ) : location.pathname.includes("/search") ? (
-                <FaPlus className="plus" />
-              ) : (
-                <FaTrash className="trash" />
-              )}
+                  {location.pathname.includes("/pokemon") ||
+                  location.pathname.includes("/search") ? (
+                    <FaPlus className="plus" />
+                  ) : (
+                    <FaTrash className="trash" />
+                  )}
                 </div>
                 <div className="pokemon-card-compare">
-                  <IoGitCompare />
+                  <IoGitCompare
+                    onClick={() => {
+                      dispatch(addToCompare(data));
+                      dispatch(
+                        setToast(
+                          `Select another Pokemon to compare with ${data.name}.`
+                        )
+                      );
+                    }}
+                  />
                 </div>
                 <h3 className="pokemon-card-title">{data.name}</h3>
                 <img
