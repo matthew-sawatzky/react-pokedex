@@ -1,16 +1,25 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDNkwUXJFMOOYjNpnTkrCo1Y9nCeTpFC04",
-  authDomain: "pokedex-fe543.firebaseapp.com",
-  projectId: "pokedex-fe543",
-  storageBucket: "pokedex-fe543.appspot.com",
-  messagingSenderId: "948503681986",
-  appId: "1:948503681986:web:79250d83d60f75960a545b",
-  measurementId: "G-4Z4DWLHXGS",
+  apiKey: "AIzaSyDfhBrAdfd8r2DyxPl_ASmJVlhqyLlIHMM",
+
+  authDomain: "pokedex-77c38.firebaseapp.com",
+
+  projectId: "pokedex-77c38",
+
+  storageBucket: "pokedex-77c38.firebasestorage.app",
+
+  messagingSenderId: "398909570021",
+
+  appId: "1:398909570021:web:bbc7c53e29e2cd3e104d0c",
+
+  measurementId: "G-MJ9XNCT133",
 };
+
+// Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(app);

@@ -12,10 +12,21 @@ import Compare from "./pages/Compare";
 import Pokemon from "./pages/Pokemon";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { onAuthStateChanged } from "firebase/auth";
+import { firebaseAuth } from "./utils/FirebaseConfig";
+import { setUserStatus } from "./app/slices/AppSlice";
 
 function App() {
   const { toasts } = useAppSelector(({ app }) => app);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+      if(currentUser){
+        dispatch(setUserStatus({ email: currentUser.email }));
+      }
+    })
+  })
 
   useEffect(() => {
     if (toasts.length) {
