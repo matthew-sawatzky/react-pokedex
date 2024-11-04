@@ -36,10 +36,9 @@ function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
                     <FaTrash
                       className="trash"
                       onClick={async () => {
-                        await dispatch(
-                          removePokemon({ id: data.firebaseId! })
-                        );
-                      }}
+                          await dispatch(removePokemon({ id: data.firebaseId! }))
+                          dispatch(setToast("Pokemon removed from your list."))
+                        }}
                     />
                   )}
                 </div>

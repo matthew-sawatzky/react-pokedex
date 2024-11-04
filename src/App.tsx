@@ -7,7 +7,6 @@ import "./scss/index.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MyList from "./pages/MyList";
 import Search from "./pages/Search";
-import About from "./pages/About";
 import Compare from "./pages/Compare";
 import Pokemon from "./pages/Pokemon";
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
@@ -52,7 +51,6 @@ function App() {
           <Routes>
             <Route element={<Search />} path="/search" />
             <Route element={<MyList />} path="/list" />
-            <Route element={<About />} path="/about" />
             <Route element={<Compare />} path="/compare" />
             <Route element={<Pokemon />} path="/pokemon" />
             <Route element={<Navigate to="/pokemon/1" />} path="*" />
