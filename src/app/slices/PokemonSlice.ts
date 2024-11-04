@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { getInitialPokemonData } from "../reducers/getInitialPokemonData";
 import { getPokemonData } from "../reducers/getPokemonData";
 import { getUserPokemons } from "../reducers/getUserPokemons";
@@ -13,7 +13,9 @@ const initialState: PokemonTypeInitialState = {
   randomPokemons: undefined,
   compareQueue: [],
   userPokemons: [],
+  currentPokemon: undefined,
 };
+
 export const PokemonSlice = createSlice({
   name: "pokemon",
   initialState,
@@ -37,7 +39,14 @@ export const PokemonSlice = createSlice({
       queue.splice(index, 1);
       state.compareQueue = queue;
     },
+    setCurrentPokemon: (state, action) => {
+      state.currentPokemon = action.payload;
+    },
+    resetRandomPokemons: (state) => {
+      state.randomPokemons = undefined;
+    },
   },
+
   extraReducers: (builder) => {
     builder.addCase(getInitialPokemonData.fulfilled, (state, action) => {
       state.allPokemon = action.payload;
@@ -62,4 +71,6 @@ export const PokemonSlice = createSlice({
 export const {
   addToCompare,
   removeFromCompare,
+  setCurrentPokemon,
+  resetRandomPokemons,
 } = PokemonSlice.actions;

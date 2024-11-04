@@ -1,34 +1,47 @@
-import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
+import React from "react";
 import { IoGitCompare } from "react-icons/io5";
-import { FaPlus, FaTrash } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { FaTrash, FaPlus } from "react-icons/fa";
+import { addToCompare, setCurrentPokemon } from "../app/slices/PokemonSlice";
 import { useAppDispatch } from "../app/hooks";
-import { addToCompare } from "../app/slices/PokemonSlice";
+import { removePokemonFromUserList } from "../app/reducers/removePokemonFromUserList";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setToast } from "../app/slices/AppSlice";
 import { addPokemonToList } from "../app/reducers/addPokemonToList";
-
+import { pokemonTabs } from "../utils/Constants";
+import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
 function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
-  const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div className="pokemon-card-grid-container">
       <div className="pokemon-card-grid">
         {pokemons &&
           pokemons.length > 0 &&
-          pokemons.map((data: userPokemonsType) => {
+          pokemons?.map((data: userPokemonsType) => {
             return (
               <div key={data.id} className="pokemon-card">
                 <div className="pokemon-card-list">
-                  {location.pathname.includes("/pokemon") ||
-                  location.pathname.includes("/search") ? (
+                  {location.pathname.includes("/pokemon") ? (
+                    <FaPlus
+                      className="plus"
+                      onClick={() => dispatch(addPokemonToList(data))}
+                    />
+                  ) : location.pathname.includes("/search") ? (
                     <FaPlus
                       className="plus"
                       onClick={() => dispatch(addPokemonToList(data))}
                     />
                   ) : (
-                    <FaTrash className="trash" />
+                    <FaTrash
+                      className="trash"
+                      onClick={async () => {
+                        await dispatch(
+                          removePokemonFromUserList({ id: data.firebaseId! })
+                        );
+                        dispatch(setToast("Pokemon Removed Successfully."));
+                      }}
+                    />
                   )}
                 </div>
                 <div className="pokemon-card-compare">
@@ -37,7 +50,7 @@ function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
                       dispatch(addToCompare(data));
                       dispatch(
                         setToast(
-                          `Select another Pokemon to compare with ${data.name}.`
+                          `${data.name} has been added to compare queue.`
                         )
                       );
                     }}
@@ -46,10 +59,14 @@ function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
                 <h3 className="pokemon-card-title">{data.name}</h3>
                 <img
                   src={data.image}
-                  alt="pokemon"
+                  alt=""
                   className="pokemon-card-image"
                   loading="lazy"
-                  onClick={() => navigate(`/pokemon/${data.id}`)}
+                  onClick={() => {
+                    // dispatch(setPokemonTab(pokemonTabs.description));
+                    dispatch(setCurrentPokemon(undefined));
+                    navigate(`/pokemon/${data.id}`);
+                  }}
                 />
                 <div className="pokemon-card-types">
                   {data.types.map(

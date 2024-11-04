@@ -20,7 +20,7 @@ export const AppSlice = createSlice({
     },
     setUserStatus: (state, action) => {
       state.userInfo = action.payload;
-    }
+    },
   },
 });
 

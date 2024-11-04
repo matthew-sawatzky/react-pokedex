@@ -8,6 +8,7 @@ export interface PokemonTypeInitialState {
   randomPokemons: undefined | generatedPokemonType[];
   compareQueue: generatedPokemonType[];
   userPokemons: userPokemonsType[];
+  currentPokemon: undefined | currentPokemonType;
 }
 
 export interface genericPokemonType {
@@ -33,6 +34,18 @@ export interface pokemonTypeInterface {
 }
 export interface userPokemonsType extends generatedPokemonType {
   firebaseId?: string;
+}
+
+export interface currentPokemonType {
+  id: number;
+  name: string;
+  types: pokemonTypeInterface[];
+  image: string;
+  stats: pokemonStatsType[];
+  encounters: string[];
+  evolutionLevel: number;
+  evolution: { level: number; pokemon: { name: string; url: string } }[];
+  pokemonAbilities: { abilities: string[]; moves: string[] };
 }
 
 export type pokemonStatType =

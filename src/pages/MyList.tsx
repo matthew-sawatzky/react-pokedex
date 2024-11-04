@@ -1,22 +1,17 @@
+import React, { useEffect } from "react";
 import Wrapper from "../sections/Wrapper";
 import Login from "../assets/Login";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import PokemonCardGrid from "../components/PokemonCardGrid";
-import { useEffect } from "react";
 import { getUserPokemons } from "../app/reducers/getUserPokemons";
+import PokemonCardGrid from "../components/PokemonCardGrid";
 
 function MyList() {
   const { userInfo } = useAppSelector(({ app }) => app);
   const { userPokemons } = useAppSelector(({ pokemon }) => pokemon);
   const dispatch = useAppDispatch();
-
   useEffect(() => {
-    dispatch(getUserPokemons())
+    dispatch(getUserPokemons());
   }, [userInfo, dispatch]);
-  useEffect(() => {
-    
-  }, [userPokemons])
-
   return (
     <div className="list">
       {userInfo ? <PokemonCardGrid pokemons={userPokemons} /> : <Login />}

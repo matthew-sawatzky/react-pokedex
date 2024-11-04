@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
       if(currentUser){
-        dispatch(setUserStatus({ email: currentUser.email }));
+        dispatch(setUserStatus({ email: currentUser.email as string }));
       }
     })
   })
