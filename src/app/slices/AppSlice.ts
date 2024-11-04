@@ -1,5 +1,5 @@
-import { AppTypeInitialState } from "../../utils/Types";
 import { createSlice } from "@reduxjs/toolkit";
+import { AppTypeInitialState } from "../../utils/Types";
 
 const initialState: AppTypeInitialState = {
   toasts: [],
@@ -20,7 +20,7 @@ export const AppSlice = createSlice({
     },
     setUserStatus: (state, action) => {
       state.userInfo = action.payload;
-    }
+    },
   },
 });
 
