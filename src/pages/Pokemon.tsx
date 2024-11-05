@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setCurrentPokemon } from "../app/slices/PokemonSlice";
 import { setPokemonTab } from "../app/slices/AppSlice";
 import Loader from "../components/Loader";
-
 import {
   pokemonRoute,
   pokemonSpeciesRoute,
@@ -23,8 +22,9 @@ import {
 
 function Pokemon() {
   const params = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { currentPokemonTab } = useAppSelector(
+  const currentPokemonTab = useAppSelector(
     ({ app: { currentPokemonTab } }) => currentPokemonTab
   );
   const currentPokemon = useAppSelector(
@@ -75,45 +75,57 @@ function Pokemon() {
   );
 
   const [isDataLoading, setIsDataLoading] = useState(true);
-  const getPokemonInfo = useCallback(
-    async (image) => {
-      const { data } = await axios.get(`${pokemonRoute}/${params.id}`);
+const getPokemonInfo = useCallback(
+  async (image) => {
+    try {
+      console.log(`${pokemonRoute}/${params.id}`); // Log the constructed route for params.id
+      const { data } = await axios.get(`${pokemonRoute}/${id}`);
+      console.log(`${pokemonSpeciesRoute}/${data.id}`); // Log the constructed route for data.id
+
+      // Fetch encounter data
       const { data: dataEncounters } = await axios.get(
         data.location_area_encounters
       );
 
-      const {
-        data: {
-          evolution_chain: { url: evolutionURL },
-        },
-      } = await axios.get(`${pokemonSpeciesRoute}/${data.id}`);
-      const { data: evolutionData } = await axios.get(evolutionURL);
+      // Fetch species data to get the evolution chain URL
+      const { data: speciesData } = await axios.get(
+        `${pokemonSpeciesRoute}/${data.id}`
+      );
+      const { data: evolutionData } = await axios.get(
+        speciesData.evolution_chain.url
+      );
 
+      // Process abilities and moves
       const pokemonAbilities = {
         abilities: data.abilities.map(({ ability }) => ability.name),
         moves: data.moves.map(({ move }) => move.name),
       };
 
-      const encounters = [];
+      // Process encounter locations
+      const encounters = dataEncounters.map((encounter) =>
+        encounter.location_area.name.toUpperCase().split("-").join(" ")
+      );
+
+      // Get evolution data using the helper function
       const evolution = getEvolutionData(evolutionData.chain);
-      let evolutionLevel;
-      evolutionLevel = evolution.find(
+
+      // Find the evolution level for the current Pokémon
+      const evolutionLevel = evolution.find(
         ({ pokemon }) => pokemon.name === data.name
-      ).level;
-      dataEncounters.forEach((encounter) => {
-        encounters.push(
-          encounter.location_area.name.toUpperCase().split("-").join(" ")
-        );
-      });
-      const stats = await data.stats.map(({ stat, base_stat }) => ({
+      )?.level;
+
+      // Process stats data
+      const stats = data.stats.map(({ stat, base_stat }) => ({
         name: stat.name,
         value: base_stat,
       }));
+
+      // Dispatch the processed data to the Redux store
       dispatch(
         setCurrentPokemon({
           id: data.id,
           name: data.name,
-          types: data.types.map(({ type: { name } }) => name),
+          types: data.types.map(({ type }) => type.name),
           image,
           stats,
           encounters,
@@ -122,10 +134,16 @@ function Pokemon() {
           pokemonAbilities,
         })
       );
-      setIsDataLoading(false);
-    },
-    [getEvolutionData, params.id, dispatch]
-  );
+
+      setIsDataLoading(false); // Set loading to false after data processing
+    } catch (error) {
+      console.error("Failed to fetch Pokémon data:", error);
+      setIsDataLoading(false); // Stop loading if there's an error
+    }
+  },
+  [params.id, dispatch, getEvolutionData]
+);
+
 
   useEffect(() => {
     const imageElemet = document.createElement("img");
@@ -145,9 +163,13 @@ function Pokemon() {
       root.style.setProperty("--accent-color", color[0].hex.split('"')[0]);
     };
     getColor();
+    let image = images[params.id];
+    if (!image) {
+      image = defaultImages[params.id];
+    }
 
-    getPokemonInfo(images);
-  }, [params, getPokemonInfo]);
+    getPokemonInfo(image);
+  }, [params.id, getPokemonInfo]);
 
   return (
     <>

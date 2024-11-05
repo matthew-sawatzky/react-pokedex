@@ -1,4 +1,4 @@
-import { pokemonStatType, pokemonTypeInterface } from "../../utils/Types";
+import { pokemonTypeInterface } from "../../utils/Types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setToast } from "../slices/AppSlice";
 import { addDoc } from "firebase/firestore";

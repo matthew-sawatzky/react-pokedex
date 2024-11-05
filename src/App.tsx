@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Background from "./components/Background";
 import Navbar from "./sections/Navbar";
-import Wrapper from "./sections/Wrapper";
 import Footer from "./sections/Footer";
 import "./scss/index.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -21,11 +20,11 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
-      if(currentUser){
-        dispatch(setUserStatus({ email: currentUser.email}))
+      if (currentUser) {
+        dispatch(setUserStatus({ email: currentUser.email }));
       }
-    })
-  },[dispatch])
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     if (toasts.length) {
@@ -52,7 +51,7 @@ function App() {
             <Route element={<Search />} path="/search" />
             <Route element={<MyList />} path="/list" />
             <Route element={<Compare />} path="/compare" />
-            <Route element={<Pokemon />} path="/pokemon" />
+            <Route element={<Pokemon />} path="/pokemon/:id" />
             <Route element={<Navigate to="/pokemon/1" />} path="*" />
           </Routes>
           <Footer />
