@@ -124,7 +124,7 @@ function Pokemon() {
       );
       setIsDataLoading(false);
     },
-    [params.id, dispatch, getEvolutionData]
+    [getEvolutionData, params.id, dispatch]
   );
 
   useEffect(() => {

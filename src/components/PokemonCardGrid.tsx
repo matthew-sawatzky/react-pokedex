@@ -7,6 +7,7 @@ import { removePokemon } from "../app/reducers/removePokemonFromUserList";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setToast } from "../app/slices/AppSlice";
 import { addPokemonToList } from "../app/reducers/addPokemonToList";
+import { setPokemonTab } from "../app/slices/AppSlice";
 import { pokemonTabs } from "../utils/Constants";
 import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
 function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
@@ -61,7 +62,7 @@ function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
                   className="pokemon-card-image"
                   loading="lazy"
                   onClick={() => {
-                    // dispatch(setPokemonTab(pokemonTabs.description));
+                    dispatch(setPokemonTab(pokemonTabs.description));
                     dispatch(setCurrentPokemon(undefined));
                     navigate(`/pokemon/${data.id}`);
                   }}
