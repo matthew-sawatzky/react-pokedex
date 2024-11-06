@@ -23,10 +23,6 @@ export default function Navbar() {
       name: "My List",
       route: "/list",
     },
-    {
-      name: "About",
-      route: "/about",
-    },
   ];
   const location = useLocation();
   const dispatch = useAppDispatch();

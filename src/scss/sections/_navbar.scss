@@ -2,6 +2,7 @@ nav {
   display: grid;
   grid-template-columns: 5rem auto 5rem;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.203);
+
   .data {
     margin: 0px;
     border: 0.5px solid rgba(255, 255, 255, 0.203);
@@ -9,8 +10,10 @@ nav {
     border-bottom: none;
     padding: 0 20rem;
     ul {
+      justify-content: space-evenly;
+      gap: 2rem;
       display: grid;
-      grid-template-columns: repeat(5, 20%);
+      grid-template-columns: repeat(4, 25%);
       height: 100%;
       list-style-type: none;
       z-index: 1;
