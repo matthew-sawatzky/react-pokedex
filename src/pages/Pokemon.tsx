@@ -172,19 +172,20 @@ const getPokemonInfo = useCallback(
   }, [params.id, getPokemonInfo]);
 
   return (
-    <>
-      {!isDataLoading && currentPokemon ? (
+    // <>
+    //   {!isDataLoading && currentPokemon ? (
         <>
           {currentPokemonTab === pokemonTabs.description && <Description />}
           {currentPokemonTab === pokemonTabs.evolution && <Evolution />}
           {currentPokemonTab === pokemonTabs.locations && <Locations />}
           {currentPokemonTab === pokemonTabs.moves && <CapableMoves />}
         </>
-      ) : (
-        <Loader />
-      )}
-    </>
-  );
+      )
+      //  : (
+    //     <Loader />
+    //   )}
+    // </>
+  // );
 }
 
 export default Wrapper(Pokemon);
