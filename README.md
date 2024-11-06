@@ -1,12 +1,50 @@
-# Getting Started with Create React App
+# Pokedex Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+This project is a Pokedex application built with React, Redux, and TypeScript. It allows users to search for Pokemon, view their details, compare different Pokemon, and manage a list of favorite Pokemon. I made this project for my portfolio and don't have any intention of working on it further.
 
-## Available Scripts
+## Features
+
+- **Search Pokemon**: Search for Pokemon by name and view their details.
+- **Compare Pokemon**: Compare different Pokemon based on their stats and abilities.
+- **Pokemon Details**: View detailed information about each Pokemon, including their evolution chain, locations, and capable moves.
+- **Favorite List**: Manage a list of favorite Pokemon.
+
+## Technologies Used
+
+- **React**: A JavaScript library for building user interfaces.
+- **Redux**: A predictable state container for JavaScript apps.
+- **Redux Toolkit**: The official, recommended way to write Redux logic.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **Axios**: A promise-based HTTP client for the browser and Node.js.
+- **React Router**: A collection of navigational components that compose declaratively with your application.
+- **SCSS**: A CSS preprocessor that adds power and elegance to the basic language.
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js**: Ensure you have Node.js installed. You can download it from [here](https://nodejs.org/).
+- **Yarn**: It is recommended to use Yarn as the package manager. You can install it from [here](https://yarnpkg.com/).
+
+### Installation
+
+1. **Clone the repository**:
+
+   ```sh
+   git clone https://github.com/your-username/pokedex.git
+   cd pokedex
+   ```
+
+2. **Install dependencies**:
+   ```sh
+   yarn install
+   ```
+
+### Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+#### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,33 +52,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **src**: Contains the source code of the application.
+  - **components**: Reusable UI components.
+  - **pages**: Different pages of the application.
+  - **sections**: Sections of the application like Navbar, Footer, etc.
+  - **app**: Redux store configuration and slices.
+  - **utils**: Utility functions and constants.
+  - **scss**: SCSS stylesheets.
