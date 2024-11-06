@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 
 
-const FirebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDfhBrAdfd8r2DyxPl_ASmJVlhqyLlIHMM",
 
   authDomain: "pokedex-77c38.firebaseapp.com",
@@ -20,7 +20,7 @@ const FirebaseConfig = {
   measurementId: "G-MJ9XNCT133",
 };
 
-const app = initializeApp(FirebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(app);
 export const firebaseDB = getFirestore(app);
 
