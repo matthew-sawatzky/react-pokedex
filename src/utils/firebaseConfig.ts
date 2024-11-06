@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 
-const firebaseConfig = {
+const FirebaseConfig = {
   apiKey: "AIzaSyDfhBrAdfd8r2DyxPl_ASmJVlhqyLlIHMM",
 
   authDomain: "pokedex-77c38.firebaseapp.com",
@@ -21,7 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(FirebaseConfig);
 export const firebaseAuth = getAuth(app);
 export const firebaseDB = getFirestore(app);
 
