@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppSelector } from '../../app/hooks'
 import PokemonContainer from '../../components/PokemonContainer'
-import Info from '../../components/Info'
+import Info from '../../components/info'
 
 function Description() {
     const pokemonData = useAppSelector(
