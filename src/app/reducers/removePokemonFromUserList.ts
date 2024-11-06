@@ -1,4 +1,4 @@
-import { pokemonListRef } from "../../utils/FirebaseConfig"
+import { pokemonListRef } from "../../utils/FirebaseConfig.ts"
 import { deleteDoc, doc } from "firebase/firestore"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 

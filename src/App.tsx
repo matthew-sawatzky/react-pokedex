@@ -12,7 +12,7 @@ import { ToastContainer, ToastOptions, toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { setUserStatus } from "./app/slices/AppSlice";
 import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuth } from "./utils/FirebaseConfig";
+import { firebaseAuth } from "./utils/FirebaseConfig.ts";
 
 function App() {
   const { toasts } = useAppSelector(({ app }) => app);

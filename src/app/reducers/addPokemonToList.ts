@@ -2,7 +2,7 @@ import { pokemonTypeInterface } from "../../utils/Types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setToast } from "../slices/AppSlice";
 import { addDoc } from "firebase/firestore";
-import { pokemonListRef } from "../../utils/FirebaseConfig";
+import { pokemonListRef } from "../../utils/FirebaseConfig.ts";
 import { pokemonStatsType, userPokemonsType } from "../../utils/Types";
 import { RootState } from "../store";
 import { getUserPokemons } from "./getUserPokemons";

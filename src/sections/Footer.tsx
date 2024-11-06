@@ -2,7 +2,7 @@ import { MdOutlinePowerSettingsNew } from "react-icons/md";
 import { signOut } from "firebase/auth";
 import { useAppDispatch } from "../app/hooks";
 import { setUserStatus, setToast } from "../app/slices/AppSlice";
-import { firebaseAuth } from "../utils/FirebaseConfig";
+import { firebaseAuth } from "../utils/FirebaseConfig.ts";
 import { pokemonTabs } from "../utils/Constants";
 import { useLocation } from "react-router-dom";
 import { setPokemonTab } from "../app/slices/AppSlice";
