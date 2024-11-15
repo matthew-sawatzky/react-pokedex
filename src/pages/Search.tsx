@@ -22,7 +22,7 @@ function Search() {
       const clonedPokemons = [...allPokemon];
       const randomPokemonsId = clonedPokemons
         .sort(() => Math.random() - Math.random())
-        .slice(0,50);
+        .slice(0,30);
       dispatch(getPokemonData(randomPokemonsId));
     }
   }, [allPokemon, dispatch]);
@@ -39,7 +39,7 @@ function Search() {
       const clonedPokemons = [...(allPokemon as [])];
       const randomPokemonsId = clonedPokemons
         .sort(() => Math.random() - Math.random())
-        .slice(0, 20);
+        .slice(0, 30);
       dispatch(getPokemonData(randomPokemonsId));
     }
   };
