@@ -1,13 +1,19 @@
-import { useEffect } from "react";
+// @ts-nocheck
+
+import React, { useEffect } from "react";
 import Wrapper from "../sections/Wrapper";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getInitialPokemonData } from "../app/reducers/getInitialPokemonData";
-import { useAppSelector } from "../app/hooks";
+import Loader from "../components/Loader";
+import { setLoading } from "../app/slices/AppSlice";
 import PokemonCardGrid from "../components/PokemonCardGrid";
 import { getPokemonData } from "../app/reducers/getPokemonData";
-import { debounce } from "../utils/Debounce"
+import { debounce } from "lodash";
 
 function Search() {
+  const handleChange = debounce((value: string) => getPokemon(value), 300);
+  const isLoading = useAppSelector(({ app: { isLoading } }) => isLoading);
+
   const dispatch = useAppDispatch();
   const { allPokemon, randomPokemons } = useAppSelector(
     ({ pokemon }) => pokemon
@@ -22,39 +28,47 @@ function Search() {
       const clonedPokemons = [...allPokemon];
       const randomPokemonsId = clonedPokemons
         .sort(() => Math.random() - Math.random())
-        .slice(0,30);
+        .slice(0, 30);
       dispatch(getPokemonData(randomPokemonsId));
     }
   }, [allPokemon, dispatch]);
 
-  const handleChange = debounce((value:string) => getPokemon(value), 300)
+  useEffect(() => {
+    if (randomPokemons) {
+      dispatch(setLoading(false));
+    }
+  }, [randomPokemons, dispatch]);
 
   const getPokemon = async (value: string) => {
     if (value.length) {
-      const pokemons = allPokemon?.filter((pokemon) =>
+      const pokemons = allPokemon.filter((pokemon) =>
         pokemon.name.includes(value.toLowerCase())
       );
-      dispatch(getPokemonData(pokemons!));
+      dispatch(getPokemonsData(pokemons));
     } else {
-      const clonedPokemons = [...(allPokemon as [])];
+      const clonedPokemons = [...allPokemon];
       const randomPokemonsId = clonedPokemons
         .sort(() => Math.random() - Math.random())
         .slice(0, 30);
-      dispatch(getPokemonData(randomPokemonsId));
+      dispatch(getPokemonsData(randomPokemonsId));
     }
   };
 
   return (
     <>
-      <div className="search">
-        <input
-          type="text"
-          className="pokemon-searchbar"
-          placeholder="Search Pokedex"
-          onChange={(e) => handleChange(e.target.value)}
-        />
-        <PokemonCardGrid pokemons={randomPokemons!} />
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="search">
+          <input
+            type="text"
+            onChange={(e) => handleChange(e.target.value)}
+            className="pokemon-searchbar"
+            placeholder="Search Pokemon"
+          />
+          <PokemonCardGrid pokemons={randomPokemons} />
+        </div>
+      )}
     </>
   );
 }

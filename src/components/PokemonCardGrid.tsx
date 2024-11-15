@@ -10,6 +10,7 @@ import { addPokemonToList } from "../app/reducers/addPokemonToList";
 import { setPokemonTab } from "../app/slices/AppSlice";
 import { pokemonTabs } from "../utils/Constants";
 import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
+
 function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
